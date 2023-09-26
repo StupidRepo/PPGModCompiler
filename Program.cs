@@ -21,15 +21,27 @@ namespace PPGModCompiler
 {
     public class Compiler
     {
+        public static void RunFileCheck()
+        {
+            Console.WriteLine("Running quick check for some PPG folders...");
+            bool found = (Directory.Exists(pathlol + "People Playground_Data") || Directory.Exists(pathlol + "CompiledModAssemblies"));
+            while(!found)
+            {
+                Console.WriteLine("Couldn't find the 'People Playground_Data' folder or the 'CompiledModAssemblies' folder at this path! Try entering another path, or press CTRL+C to quit!");
+                Console.Write("Path: ");
+                pathlol = Console.ReadLine();
+                found = (Directory.Exists(pathlol + "People Playground_Data") || Directory.Exists(pathlol + "CompiledModAssemblies"));
+            }
+            Console.WriteLine("Both folders found; continuing...");
+        }
+
         [Obsolete]
         public static int Main(string[] args)
         {
             Console.Write("Enter (or paste) the path to the People Playground folder (with trailing slash!): ");
             pathlol = Console.ReadLine();
 
-            Console.Write("Running quick check for some PPG folders...");
-            if(!File.Exists(pathlol + "People Playground_Data") || !File.Exists(pathlol + "CompiledModAssemblies")) { throw new IncorrectPPGPathException(); }
-            Console.Write("Both folders found; continuing...");
+            RunFileCheck();
 
             CompilerConfig config = ReadConfig();
             compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, false, null, null, null, null, OptimizationLevel.Release, false, false, null, null, default(ImmutableArray<byte>), null, Platform.AnyCpu, ReportDiagnostic.Default, 4, null, true, false, null, null, null, null, null, false, MetadataImportOptions.Public, NullableContextOptions.Disable);
