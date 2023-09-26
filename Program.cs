@@ -15,7 +15,6 @@ using Microsoft.CodeAnalysis.Emit;
 using Microsoft.CodeAnalysis.Text;
 using ModModels;
 using Newtonsoft.Json;
-using PPGModCompiler;
 using WatsonTcp;
 
 namespace PPGModCompiler
