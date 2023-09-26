@@ -1,12 +1,6 @@
 # PPGModCompiler
 An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGModCompiler").
 **People Playground (PPG) and PPGMC was made by Studio Minus (https://studiominus.nl)**
-# Sources
-* 95% code from dnSpy (on PPGModCompiler.dll from game)
-* 5% code from Visual Studio's Assembly Explorer thingy
-# Credits
-All credits go to Studio Minus for the code of both PPG and PPGMC.
-I'm just a person who decompiled it into a Visual Studio project for cross-platform building.
 # How to Use
 * Download [Visual Studio][vs] and [.NET 5.0][net50].
 * Grab the [source code for this repository][source] in a .ZIP file, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
@@ -47,6 +41,13 @@ I'll ignore PRs that are:
 4. Make sure the path is something like this:
     - `C:/[program files thingy]/[steam dir with steamapps]/People Playground/`
 5. MAKE SURE THE PATH HAS A SLASH AT THE END! THIS IS SO IMPORTANT!
+
+# Sources
+* 95% code from dnSpy (on PPGModCompiler.dll from game)
+* 5% code from Visual Studio's Assembly Explorer thingy
+# Credits
+All credits go to Studio Minus for the code of both PPG and PPGMC.
+I'm just a person who decompiled it into a Visual Studio project for cross-platform building.
 
 [newi]: https://github.com/StupidRepo/PPGModCompiler/issues
 [source]: https://github.com/StupidRepo/PPGModCompiler/archive/refs/heads/main.zip
