@@ -27,6 +27,11 @@ namespace PPGModCompiler
         {
             Console.Write("Enter (or paste) the path to the People Playground folder (with trailing slash!): ");
             pathlol = Console.ReadLine();
+
+            Console.Write("Running quick check for some PPG folders...");
+            if(!File.Exists(pathlol + "People Playground_Data") || !File.Exists(pathlol + "CompiledModAssemblies")) { throw new IncorrectPPGPathException(); }
+            Console.Write("Both folders found; continuing...");
+
             CompilerConfig config = ReadConfig();
             compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, false, null, null, null, null, OptimizationLevel.Release, false, false, null, null, default(ImmutableArray<byte>), null, Platform.AnyCpu, ReportDiagnostic.Default, 4, null, true, false, null, null, null, null, null, false, MetadataImportOptions.Public, NullableContextOptions.Disable);
             if (config.ShutdownWhenGameNotFound && args.Length == 1 && int.TryParse(args[0], out gameProcessId))
@@ -35,8 +40,10 @@ namespace PPGModCompiler
                 monitor.IsBackground = true;
                 monitor.Start();
             }
+
             server = new WatsonTcpServer(config.Hostname, config.Port);
             WatsonTcpServerSettings settings = server.Settings;
+
             settings.Logger = (Action<Severity, string>)Delegate.Combine(settings.Logger, new Action<Severity, string>(delegate (Severity s, string m)
             {
                 Console.WriteLine("[{0}] {1}", s, m);
@@ -59,8 +66,10 @@ namespace PPGModCompiler
             {
                 Console.WriteLine("Server was stopped");
             };
+
             server.Callbacks.SyncRequestReceived = (SyncRequest e) => new SyncResponse(e, "deze snap ik niet ouwe");
             server.Start();
+
             Console.WriteLine(string.Format("Started listening on {0}:{1}", config.Hostname, config.Port));
             while (!server.IsListening)
             {
