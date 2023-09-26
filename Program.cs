@@ -32,16 +32,30 @@ namespace PPGModCompiler
                 pathlol = Console.ReadLine();
                 found = (Directory.Exists(pathlol + "People Playground_Data") || Directory.Exists(pathlol + "CompiledModAssemblies"));
             }
+            StreamWriter lp = File.CreateText("last_path");
+            lp.Write(pathlol);
+            lp.Close();
             Console.WriteLine("Both folders found; continuing...");
         }
 
         [Obsolete]
         public static int Main(string[] args)
         {
-            Console.Write("Enter (or paste) the path to the People Playground folder (with trailing slash!): ");
-            pathlol = Console.ReadLine();
+            Console.WriteLine("Checking for 'last_path'...");
+            if(File.Exists("last_path"))
+            {
+                Console.WriteLine("last_path found!");
+                pathlol = File.ReadAllText("last_path");
 
-            RunFileCheck();
+                RunFileCheck();
+            } else
+            {
+                Console.WriteLine("last_path not found.");
+                Console.Write("Enter (or paste) the path to the People Playground folder (with trailing slash!): ");
+                pathlol = Console.ReadLine();
+
+                RunFileCheck();
+            }
 
             CompilerConfig config = ReadConfig();
             compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, false, null, null, null, null, OptimizationLevel.Release, false, false, null, null, default(ImmutableArray<byte>), null, Platform.AnyCpu, ReportDiagnostic.Default, 4, null, true, false, null, null, null, null, null, false, MetadataImportOptions.Public, NullableContextOptions.Disable);
