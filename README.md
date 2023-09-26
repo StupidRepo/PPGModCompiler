@@ -2,7 +2,7 @@
 An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGModCompiler").
 **People Playground (PPG) and PPGMC was made by Studio Minus (https://studiominus.nl)**
 
-### THIS IS A WIP I HAVEN'T FINISHED IT YET LOL
+## THIS IS A WIP I HAVEN'T FINISHED IT YET LOL
 
 # Sources
 * 95% code from dnSpy (on PPGModCompiler.dll from game)
