@@ -180,7 +180,7 @@ namespace PPGModCompiler
                 {
                     //string mytext = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\People Playground\\People Playground_Data\\hello.txt";
                     text = text.Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\workshop", pathlol+"workshop").Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\People Playground\\\\", pathlol+"common/People Playground/").Replace("\\\\", "/");
-                    Console.WriteLine("Received text: {0}", text);
+                    Console.WriteLine("Received mod compile instructions!", text);
                     CompileMod(JsonConvert.DeserializeObject<ModCompileInstructions>(text), remote);
                 }
             }
