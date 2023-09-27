@@ -23,14 +23,14 @@ namespace PPGModCompiler
     {
         public static void RunFileCheck()
         {
-            Console.WriteLine("Running quick check for some PPG folders...");
-            bool found = (Directory.Exists(pathlol + "People Playground_Data") || Directory.Exists(pathlol + "CompiledModAssemblies"));
+            Console.WriteLine("Running quick check for some folders...");
+            bool found = (Directory.Exists(pathlol + "workshop") || Directory.Exists(pathlol + "common"));
             while(!found)
             {
-                Console.WriteLine("Couldn't find the 'People Playground_Data' folder or the 'CompiledModAssemblies' folder at this path! Try entering another path, or press CTRL+C to quit!");
+                Console.WriteLine("Couldn't find the 'workshop' folder or the 'common' folder for THE STEAM PATH! Try entering another path, or press CTRL+C to quit!");
                 Console.Write("Path: ");
                 pathlol = Console.ReadLine();
-                found = (Directory.Exists(pathlol + "People Playground_Data") || Directory.Exists(pathlol + "CompiledModAssemblies"));
+                found = (Directory.Exists(pathlol + "workshop") || Directory.Exists(pathlol + "common"));
             }
             StreamWriter lp = File.CreateText("last_path");
             lp.Write(pathlol);
@@ -51,7 +51,7 @@ namespace PPGModCompiler
             } else
             {
                 Console.WriteLine("last_path not found.");
-                Console.Write("Enter (or paste) the path to the People Playground folder (with trailing slash!): ");
+                Console.Write("Enter (or paste) the path to the Steam folder (with trailing slash!): ");
                 pathlol = Console.ReadLine();
 
                 RunFileCheck();
@@ -179,7 +179,7 @@ namespace PPGModCompiler
                 else
                 {
                     //string mytext = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\People Playground\\People Playground_Data\\hello.txt";
-                    text = text.Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\People Playground\\\\", pathlol).Replace("\\\\", "/");
+                    text = text.Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\workshop", pathlol+"workshop").Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\People Playground\\\\", pathlol+"common/People Playground/").Replace("\\\\", "/");
                     Console.WriteLine("Received text: {0}", text);
                     CompileMod(JsonConvert.DeserializeObject<ModCompileInstructions>(text), remote);
                 }
