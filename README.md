@@ -5,7 +5,7 @@ An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGMo
 # How to Use
 * Download [Visual Studio][vs] and [.NET 5.0][net50].
 * Grab the [source code for this repository][source] in a .ZIP file, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
-* Open project in Visual Studio, and then find the `Build -> Publish to FolderProfile - FileSystem` button.
+* Open project in Visual Studio, and then find the `Build -> Build Solution` button.
 * Next, find the executable by looking in `bin/out/`, and run it.
 * It will ask you where your Steam folder is.
     - To find the folder, see "[Finding your Steam folder](#finding-your-steam-folder)".
