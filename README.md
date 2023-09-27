@@ -44,7 +44,7 @@ I'll ignore PRs that are:
 3. Press "Browse local files", and then somehow copy the path.
 4. Make sure the path is something like this:
     - `C:/[program files thingy]/[steam dir with steamapps]/People Playground/`
-5. Make sure you only copy the `Steam/steamapps` part
+5. Make sure you only copy up until the `Steam/steamapps` part
     - e.g. `C:/Program Files (x86)/Steam/steamapps/`
 6. MAKE SURE THE PATH HAS A SLASH AT THE END! THIS IS SO IMPORTANT!
 
