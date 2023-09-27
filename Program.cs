@@ -66,9 +66,16 @@ namespace PPGModCompiler
                 monitor.Start();
             }
 
-            server = new WatsonTcpServer(config.Hostname, config.Port);
-            WatsonTcpServerSettings settings = server.Settings;
+            try
+            {
+                server = new WatsonTcpServer(config.Hostname, config.Port);
+            } catch (System.Net.Sockets.SocketException)
+            {
+                Console.WriteLine("A server is already running, please quit it and try again. If PPG is open, please close it.");
+                return 255;
+            }
 
+            WatsonTcpServerSettings settings = server.Settings;
             settings.Logger = (Action<Severity, string>)Delegate.Combine(settings.Logger, new Action<Severity, string>(delegate (Severity s, string m)
             {
                 Console.WriteLine("[{0}] {1}", s, m);

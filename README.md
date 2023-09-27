@@ -4,8 +4,8 @@ An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGMo
 # How to Use
 * Download [Visual Studio][vs] and [.NET 5.0][net50].
 * Grab the [source code for this repository][source] in a .ZIP file, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
-* Open project in Visual Studio, and then find the `Build -> Build Solution` button.
-* Next, find the executable by looking in either `bin/Release/net5.0` or `bin/Debug/net5.0`, and run it.
+* Open project in Visual Studio, and then find the `Build -> Publish to FolderProfile - FileSystem` button.
+* Next, find the executable by looking in `bin/out/`, and run it.
 * It will ask you where your People Playground folder is.
     - To find the folder, see "[Finding your PPG Folder](#finding-your-ppg-folder)".
 * Open People Playground, and PPG should start compiling mods via the custom server. The first mod may fail to compile with the "asyncronous timeout" message. This is normal, and you can fix it by finding the mod that failed in the mod list, and pressing Recompile.
