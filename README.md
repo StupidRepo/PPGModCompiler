@@ -23,7 +23,7 @@ If you get an error message such as:
 ```
 Sent Error: Assembly referencing error: Could not find a part of the path '[path input by user]People Playground_Data/Managed/netstandard.dll'. to 127.0.0.1:59251
 ```
-Then you may need to restart the server, and check that the path you provided was correct (don't forget that your path needs to have a space at the end!)
+Then you may need to restart the server, and check that the path you provided was correct (see "[Finding your Steam folder](#finding-your-steam-folder)")!
 
 If you're still having errors occur (either whilst building or running), [make a new issue][newi] and I'll respond ASAP.
 
