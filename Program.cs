@@ -66,14 +66,7 @@ namespace PPGModCompiler
                 monitor.Start();
             }
 
-            try
-            {
-                server = new WatsonTcpServer(config.Hostname, config.Port);
-            } catch (System.Net.Sockets.SocketException)
-            {
-                Console.WriteLine("A server is already running, please quit it and try again. If PPG is open, please close it.");
-                return 255;
-            }
+            server = new WatsonTcpServer(config.Hostname, config.Port);
 
             WatsonTcpServerSettings settings = server.Settings;
             settings.Logger = (Action<Severity, string>)Delegate.Combine(settings.Logger, new Action<Severity, string>(delegate (Severity s, string m)
@@ -100,7 +93,16 @@ namespace PPGModCompiler
             };
 
             server.Callbacks.SyncRequestReceived = (SyncRequest e) => new SyncResponse(e, "deze snap ik niet ouwe");
-            server.Start();
+
+            try
+            {
+                server.Start();
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                Console.WriteLine("A server is already running, please quit it and try again. If PPG is open, please close it.");
+                return 255;
+            }
 
             Console.WriteLine(string.Format("Started listening on {0}:{1}", config.Hostname, config.Port));
             while (!server.IsListening)
