@@ -5,12 +5,16 @@
     <TargetFramework>net5.0</TargetFramework>
     <Configurations>Release</Configurations>
     <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
+    <SelfContained>false</SelfContained>
+    <DebugType>embedded</DebugType>
+    <WarningLevel>0</WarningLevel>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <!-- <NoWarn>NETSDK1138;</NoWarn> -->
+    <AnalysisLevel>none</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

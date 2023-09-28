@@ -21,6 +21,10 @@ namespace PPGModCompiler
 {
     public class Compiler
     {
+        /// <summary>
+        /// Makes sure we definitely have PPG files.
+        /// </summary>
+
         public static void RunFileCheck()
         {
             Console.WriteLine("Running quick check for some folders...");
@@ -58,7 +62,8 @@ namespace PPGModCompiler
             }
 
             CompilerConfig config = ReadConfig();
-            compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, false, null, null, null, null, OptimizationLevel.Release, false, false, null, null, default(ImmutableArray<byte>), null, Platform.AnyCpu, ReportDiagnostic.Default, 4, null, true, false, null, null, null, null, null, false, MetadataImportOptions.Public, NullableContextOptions.Disable);
+            compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, false, null, null, null, null, OptimizationLevel.Release, false, false, null, null, default, null, Platform.AnyCpu, ReportDiagnostic.Default, 4, null, true, false, null, null, null, null, null, false, MetadataImportOptions.Public, NullableContextOptions.Disable);
+
             if (config.ShutdownWhenGameNotFound && args.Length == 1 && int.TryParse(args[0], out gameProcessId))
             {
                 monitor = new Thread(new ParameterizedThreadStart(MonitorLoop));
@@ -76,6 +81,7 @@ namespace PPGModCompiler
             server.Events.ClientConnected += delegate (object o, ConnectionEventArgs e)
             {
                 Console.WriteLine("Client {0} connected", e.Client.IpPort);
+
                 server.SendAndWait(3000, e.Client.IpPort, "alles goed ouwe", null);
             };
             server.Events.ClientDisconnected += delegate (object o, DisconnectionEventArgs e)
@@ -98,10 +104,12 @@ namespace PPGModCompiler
             {
                 server.Start();
             }
-            catch (System.Net.Sockets.SocketException)
+            catch (System.Net.Sockets.SocketException err)
             {
-                Console.WriteLine("A server is already running, please quit it and try again. If PPG is open, please close it.");
-                return 255;
+                Console.WriteLine("An error has occured - A server may be already running. If so, please quit it and try again. If PPG is open, please close it.");
+                Console.WriteLine(err.Message);
+                Console.Beep();
+                return 123;
             }
 
             Console.WriteLine(string.Format("Started listening on {0}:{1}", config.Hostname, config.Port));
@@ -178,7 +186,6 @@ namespace PPGModCompiler
                 }
                 else
                 {
-                    //string mytext = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\People Playground\\People Playground_Data\\hello.txt";
                     text = text.Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\workshop", pathlol+"workshop").Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\People Playground\\\\", pathlol+"common/People Playground/").Replace("\\\\", "/");
                     Console.WriteLine("Received mod compile instructions!", text);
                     CompileMod(JsonConvert.DeserializeObject<ModCompileInstructions>(text), remote);

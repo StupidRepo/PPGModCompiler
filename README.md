@@ -1,13 +1,19 @@
 # PPGModCompiler
 An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGModCompiler").
+
+**YES, this does work on Apple Silicon Chipped Macs (M1 MBP, M1 MBA, etc.)**
+
 **People Playground (PPG) and PPGMC was made by Studio Minus (https://studiominus.nl)**
 
 # How to Use
-* Download [Visual Studio][vs] and [.NET 5.0][net50].
-* Grab the [source code for this repository][source] in a .ZIP file, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
-* Open project in Visual Studio, and then find the `Build -> Build Solution` button.
+* Download [.NET 5.0][net50], and install it.
+* Grab the [source code for this repository][source] as a .ZIP file & extract it, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
+* Open up a command line interface (`Terminal.app`, `Terminal`, etc.), and run `cd /path/to/PPGModCompiler`.
+    - Obviously you need to replace `/path/to/` with the path to the PPGModCompiler folder.
+* Now run `dotnet restore PPGModCompiler.csproj -a x64`
+* And finally run `dotnet publish PPGModCompiler.csproj --configuration "Release" --output "bin/out" -a x64`
 * Next, find the executable by looking in `bin/out/`, and run it.
-* It will ask you where your Steam folder is.
+* The executable will ask you where your Steam folder is.
     - To find the folder, see "[Finding your Steam folder](#finding-your-steam-folder)".
 * Open People Playground, and PPG should start compiling mods via the custom server. The first mod may fail to compile with the "asyncronous timeout" message. This is normal, and you can fix it by finding the mod that failed in the mod list, and pressing Recompile.
 
