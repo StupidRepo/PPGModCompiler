@@ -5,6 +5,8 @@ An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGMo
 
 **People Playground (PPG) and PPGMC was made by Studio Minus (https://studiominus.nl)**
 
+p.s I am on Fiverr
+
 # How to Use
 * Download [.NET 5.0][net50], and install it.
 * Grab the [source code for this repository][source] as a .ZIP file & extract it, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
