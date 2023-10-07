@@ -31,7 +31,7 @@ namespace PPGModCompiler
             bool found = (Directory.Exists(pathlol + "workshop") || Directory.Exists(pathlol + "common"));
             while(!found)
             {
-                Console.WriteLine("Couldn't find the 'workshop' folder or the 'common' folder for THE STEAM PATH! Try entering another path, or press CTRL+C to quit!");
+                Console.WriteLine("Couldn't find the 'workshop' folder or the 'common' folder in the provided path. Try entering another path, or press CTRL+C to quit!");
                 Console.Write("Path: ");
                 pathlol = Console.ReadLine();
                 found = (Directory.Exists(pathlol + "workshop") || Directory.Exists(pathlol + "common"));
@@ -39,7 +39,7 @@ namespace PPGModCompiler
             StreamWriter lp = File.CreateText("last_path");
             lp.Write(pathlol);
             lp.Close();
-            Console.WriteLine("Both folders found; continuing...");
+            Console.WriteLine("Check passed; continuing...");
         }
 
         [Obsolete]
@@ -55,7 +55,7 @@ namespace PPGModCompiler
             } else
             {
                 Console.WriteLine("last_path not found.");
-                Console.Write("Enter (or paste) the path to the Steam folder (with trailing slash!): ");
+                Console.Write("Enter (or paste) the path to the steamapps folder (with trailing slash!): ");
                 pathlol = Console.ReadLine();
 
                 RunFileCheck();
@@ -106,13 +106,19 @@ namespace PPGModCompiler
             }
             catch (System.Net.Sockets.SocketException err)
             {
-                Console.WriteLine("An error has occured - A server may be already running. If so, please quit it and try again. If PPG is open, please close it.");
+                Console.WriteLine("An error has occurred - A server may be already running. If so, please quit it and try again. If PPG is open, please close it.");
                 Console.WriteLine(err.Message);
                 Console.Beep();
                 return 123;
+            } catch (Exception err)
+            {
+                Console.WriteLine("An unknown error has occurred. Please report to StupidRepo on GitHub!");
+                Console.WriteLine(err.Message);
+                Console.Beep();
+                return 420;
             }
 
-            Console.WriteLine(string.Format("Started listening on {0}:{1}", config.Hostname, config.Port));
+            Console.WriteLine($"Started listening on {config.Hostname}:{config.Port}");
             while (!server.IsListening)
             {
                 Thread.Sleep(500);

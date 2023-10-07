@@ -6,7 +6,7 @@ An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGMo
 **People Playground (PPG) and PPGMC was made by Studio Minus (https://studiominus.nl)**
 
 # How to Use
-* Download [.NET 5.0][net50], and install it.
+* Download [.NET 6.0][net60], and install it.
 * Grab the [source code for this repository][source] as a .ZIP file & extract it, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
 * Run `build.sh` on Linux or Mac.
 * After it's finished, find the executable by looking in the `out` folder, and run it.
@@ -60,5 +60,5 @@ I'm just a person who decompiled it into a Visual Studio project for cross-platf
 
 [newi]: https://github.com/StupidRepo/PPGModCompiler/issues
 [source]: https://github.com/StupidRepo/PPGModCompiler/archive/refs/heads/main.zip
-[net50]: https://dotnet.microsoft.com/en-us/download/dotnet/5.0
+[net60]: https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 [vs]: https://visualstudio.microsoft.com/downloads/

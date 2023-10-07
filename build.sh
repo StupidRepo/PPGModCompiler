@@ -13,6 +13,5 @@ cp $SERVER_OUTPUT/$OUTPUT_EXEC_NAME PPGMC_Server
 echo "Cleaning up..."
 rm -rf $SERVER_OUTPUT
 rm -rf bin
-rm -rf out
 rm -rf obj
 echo "Done!"
