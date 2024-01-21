@@ -1,5 +1,6 @@
 # PPGModCompiler
-An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGModCompiler"). This works on Apple Silicon Chip Macs (M1 MBP, M1 MBA, etc.)
+An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGModCompiler"). This works on macOS, Linux and Windows.
+
 **People Playground (PPG) and PPGMC was made by Studio Minus (https://studiominus.nl)**
 
 # How to Use
@@ -7,7 +8,16 @@ An open-sourced version of the People Playground Mod Compiler ("PPGMC" or "PPGMo
 * Grab the [source code for this repository][source] as a .ZIP file & extract it, or use git (`git clone https://github.com/StupidRepo/PPGModCompiler`).
 * Run `build.sh`, if you're on a Linux or Mac machine.
 * After it's finished, find the executable by looking in the `out` folder, and run it.
-* The executable may ask you where your Steam folder is, if it couldn't find it by default.
+* The executable will make a `config.json` file - update the SteamPath entry inside `config.json` to your Steam install directory.
+    - This can be one of the following:
+        * Windows - `C:/Program Files (x86)/Steam/`
+        * Linux - `/home/[YOUR USERNAME]/.steam/steam/steamapps/common/`
+        * OS X - `/Users/[YOUR USERNAME]/Library/Application Support/Steam/`
+    - It can also be any other path, but the ones above are a default. Examples of custom paths:
+        * Windows - `D:/SteamInstall/` **or** `D:/SteamCMD`
+        * Linux - `/home/[YOUR USERNAME]/Steam`
+        * OS X - `/Volumes/SteamStuff/Steam`
+* If you have input a valid path, it should run fine.
 * Open People Playground, and PPG should start compiling mods via the custom server. The first mod may fail to compile with the "asyncronous timeout" message. This is normal, and you can fix it by finding the mod that failed in the mod list, and pressing Recompile.
 
 # Issues

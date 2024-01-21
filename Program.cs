@@ -28,7 +28,8 @@ namespace PPGModCompiler
         public CompilerConfig()
         {
             Hostname = "127.0.0.1";
-            SteamPath = null;
+            SteamPath = "";
+
             Port = 32513;
         }
     }
@@ -59,17 +60,18 @@ namespace PPGModCompiler
                    // (Please keep using an external server though - it helps the people who are on Mac or Linux devices compile mods natively from in-game)
         public static int Main(string[] args)
         {
+            Console.Clear();
             CompilerConfig config = ReadConfig();
-            SteamPath = Path.GetFullPath(config.SteamPath);
 
             // Check if we gud
             try
             {
+                SteamPath = Path.GetFullPath(config.SteamPath);
                 if (File.Exists(SteamPath)) throw new IOException("SteamPath was a file. Please set SteamPath to a directory with the workshop and common folders in it.");
                 if (!(Directory.Exists(SteamPath) && Directory.Exists(Path.Combine(SteamPath, "workshop")) && Directory.Exists(Path.Combine(SteamPath, "common")))) throw new FileNotFoundException("Couldn't find workshop or common folders in SteamPath directory. Please update SteamPath to be the root Steam directory!");
             } catch (ArgumentException exception)
             {
-                throw new ArgumentException("SteamPath wasn't set in config.json - please set it to your Steam installation's path.");
+                throw new IOException("SteamPath wasn't set in config.json - please set it to your Steam installation's path.");
             }
 
             // Hope we are gud after this. I don't give a f**k anyway as CompileMod will just fail anyway if we don't have the folders we are looking for.
@@ -156,8 +158,10 @@ namespace PPGModCompiler
                     Console.WriteLine("Failed to read compiler config: {0}", e);
                 }
             }
-            throw new Exception("Can't find config.json - this is REQUIRED as it holds the location of your Steam directory!");
-            return new CompilerConfig();
+            var newConfig = new CompilerConfig();
+            File.WriteAllText("config.json", JsonConvert.SerializeObject(newConfig, Formatting.Indented));
+            throw new FileNotFoundException("Can't find config.json, so it has been created automatically. Please update SteamPath to your Steam install directory, and re-run this executable.");
+            return newConfig;
         }
 
         private static void ProcessMessage(byte[] data, Guid remote)
