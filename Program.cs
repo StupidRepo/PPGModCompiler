@@ -63,8 +63,14 @@ namespace PPGModCompiler
             SteamPath = Path.GetFullPath(config.SteamPath);
 
             // Check if we gud
-            if (File.Exists(SteamPath)) throw new ArgumentException("SteamPath was a file. Please set SteamPath to a directory with the workshop and common folders in it.");
-            if (!(Directory.Exists(SteamPath) && Directory.Exists(Path.Combine(SteamPath, "workshop")) && Directory.Exists(Path.Combine(SteamPath, "common")))) throw new FileNotFoundException("Couldn't find workshop or common folders in SteamPath directory. Please update SteamPath to be the root Steam directory!");
+            try
+            {
+                if (File.Exists(SteamPath)) throw new IOException("SteamPath was a file. Please set SteamPath to a directory with the workshop and common folders in it.");
+                if (!(Directory.Exists(SteamPath) && Directory.Exists(Path.Combine(SteamPath, "workshop")) && Directory.Exists(Path.Combine(SteamPath, "common")))) throw new FileNotFoundException("Couldn't find workshop or common folders in SteamPath directory. Please update SteamPath to be the root Steam directory!");
+            } catch (ArgumentException exception)
+            {
+                throw new ArgumentException("SteamPath wasn't set in config.json - please set it to your Steam installation's path.");
+            }
 
             // Hope we are gud after this. I don't give a f**k anyway as CompileMod will just fail anyway if we don't have the folders we are looking for.
 
