@@ -64,15 +64,17 @@ namespace PPGModCompiler
             CompilerConfig config = ReadConfig();
 
             // Check if we gud
+            Console.WriteLine("Checking if SteamPath is valid...");
             try
             {
-                SteamPath = Path.GetFullPath(config.SteamPath);
+                SteamPath = Path.Combine(Path.GetFullPath(config.SteamPath), "steamapps");
                 if (File.Exists(SteamPath)) throw new IOException("SteamPath was a file. Please set SteamPath to a directory with the workshop and common folders in it.");
-                if (!(Directory.Exists(SteamPath) && Directory.Exists(Path.Combine(SteamPath, "workshop")) && Directory.Exists(Path.Combine(SteamPath, "common")))) throw new FileNotFoundException("Couldn't find workshop or common folders in SteamPath directory. Please update SteamPath to be the root Steam directory!");
+                if ( !( Directory.Exists(SteamPath) && Directory.Exists(Path.Combine(SteamPath, "workshop")) && Directory.Exists(Path.Combine(SteamPath, "common")) && Directory.Exists(Path.Combine(SteamPath, "common/People Playground")) ) ) throw new FileNotFoundException("Couldn't find workshop or common folders in SteamPath directory. Please update SteamPath to be the root Steam directory!");
             } catch (ArgumentException exception)
             {
                 throw new IOException("SteamPath wasn't set in config.json - please set it to your Steam installation's path.");
             }
+            Console.WriteLine("Found 'steamapps', 'steamapps/workshop', 'steamapps/common', and 'steamapps/common/People Playground' folders!");
 
             // Hope we are gud after this. I don't give a f**k anyway as CompileMod will just fail anyway if we don't have the folders we are looking for.
 
@@ -183,8 +185,8 @@ namespace PPGModCompiler
                 }
                 else
                 {
-                    text = text.Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\workshop", Path.Combine(SteamPath, "workshop"))
-                        .Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\People Playground\\\\", Path.Combine(SteamPath, "common/People Playground"))
+                    text = text.Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\workshop", Path.Combine(SteamPath, "workshop/"))
+                        .Replace("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\People Playground\\\\", Path.Combine(SteamPath, "common/People Playground/"))
                         .Replace("\\\\", "/");
                     Console.WriteLine("Received mod compile instructions!");
                     CompileMod(JsonConvert.DeserializeObject<ModCompileInstructions>(text), remote);
@@ -245,14 +247,11 @@ namespace PPGModCompiler
                 {
                     PortableExecutableReference metadata = MetadataReference.CreateFromFile(assemblyLocation, default(MetadataReferenceProperties), null);
                     metadataReferences.Add(metadata);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     Reply(new CompilerReply
                     {
                         State = CompilationState.Error,
-                        Message = "Assembly referencing error: " + e.Message,
-                        Suspicious = true
+                        Message = "Assembly referencing error: " + e.Message
                     });
                     return;
                 }
@@ -271,23 +270,21 @@ namespace PPGModCompiler
                         ScanTree(tree);
                     }
                     trees.Add(tree);
-                }
-                catch (ShadyException e2)
-                {
+                } catch (ShadyException e) {
                     Reply(new CompilerReply
                     {
                         State = CompilationState.Error,
-                        Message = e2.Message,
+                        Message = e.Message,
                         Suspicious = true
                     });
                     return;
                 }
-                catch (Exception e3)
+                catch (Exception e)
                 {
                     Reply(new CompilerReply
                     {
                         State = CompilationState.Error,
-                        Message = "Parsing error: " + e3.Message
+                        Message = "Parsing error: " + e.Message
                     });
                     return;
                 }
